@@ -81,3 +81,36 @@ section button {
 
   cursor: pointer;
 }
+.interview-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.interview-options button {
+  padding: 16px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.interview-options button:hover {
+  background-color: #1d4ed8;
+}
+.setup-page {
+  padding: 50px;
+  text-align: center;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}

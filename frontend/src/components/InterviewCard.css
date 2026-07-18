@@ -1,0 +1,47 @@
+.interview-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  height: 220px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+  transition: all 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.interview-card:hover {
+  transform: translateY(-5px);
+}
+
+.interview-card h2 {
+  margin-bottom: 10px;
+}
+
+.interview-card p {
+  color: #555;
+  margin-top: 10px;
+  flex: 1;
+}
+
+.interview-card button {
+  align-self: flex-start;
+
+  background: royalblue;
+  color: white;
+
+  border: none;
+  padding: 10px 20px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.interview-card button:hover {
+  background: #1f4fd6;
+}

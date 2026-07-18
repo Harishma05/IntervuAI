@@ -1,13 +1,26 @@
-import "./App.css";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
+import InterviewSession from "./pages/InterviewSession";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import InterviewSetup from "./pages/InterviewSetup";
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <Hero />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route
+          path="/interview"
+          element={<InterviewSetup />}
+        />
+        <Route
+    path="/session"
+    element={<InterviewSession />}
+  />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
