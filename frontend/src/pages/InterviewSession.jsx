@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { getQuestions } from "../api/questionApi";
+import { getQuestions, saveAnswer } from "../api/questionApi";
 import "./InterviewSession.css";
 
 function InterviewSession() {
@@ -33,11 +33,18 @@ function InterviewSession() {
     loadQuestions();
   }, [apiType]);
 
-  function handleSubmit() {
+  async function handleSubmit() {
+  try {
+    await saveAnswer({
+      interviewType: interviewType,
+      question: questions[currentQuestion].question,
+      answer: answer,
+    });
+
     const newAnswers = [
       ...answers,
       {
-        question: questions[currentQuestion]?.question,
+        question: questions[currentQuestion].question,
         answer: answer,
       },
     ];
@@ -50,8 +57,10 @@ function InterviewSession() {
     } else {
       setIsCompleted(true);
     }
+  } catch (error) {
+    console.error("Error saving answer:", error);
   }
-
+}
   function restartInterview() {
     setCurrentQuestion(0);
     setAnswer("");
