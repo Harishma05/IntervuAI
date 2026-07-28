@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getQuestions, saveAnswer } from "../api/questionApi";
+import { evaluateAnswer } from "../api/aiApi";
 import "./InterviewSession.css";
 
 function InterviewSession() {
@@ -9,6 +10,7 @@ function InterviewSession() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
   const [questions, setQuestions] = useState([]);
+  const [aiFeedback, setAiFeedback] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,6 +42,12 @@ function InterviewSession() {
       question: questions[currentQuestion].question,
       answer: answer,
     });
+    const feedback = await evaluateAnswer(
+    questions[currentQuestion].question,
+    answer
+    );
+
+    setAiFeedback(feedback);
 
     const newAnswers = [
       ...answers,
@@ -162,6 +170,21 @@ function InterviewSession() {
       >
         Submit Answer
       </button>
+      {aiFeedback && (
+  <div
+    style={{
+      marginTop: "20px",
+      padding: "15px",
+      border: "1px solid #ccc",
+      borderRadius: "8px",
+      backgroundColor: "#f9f9f9",
+      whiteSpace: "pre-wrap",
+    }}
+  >
+    <h3>🤖 AI Feedback</h3>
+    <p>{aiFeedback}</p>
+  </div>
+  )}
     </div>
   );
 }
