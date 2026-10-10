@@ -1,0 +1,46 @@
+services:
+  database:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: intervuai
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD in .env}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d intervuai"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: jdbc:postgresql://database:5432/intervuai
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD in .env}
+      GROQ_API_KEY: ${GROQ_API_KEY:?Set GROQ_API_KEY in .env}
+      CODE_RUNNER_URL: ${CODE_RUNNER_URL:-}
+      CODE_RUNNER_AUTH_TOKEN: ${CODE_RUNNER_AUTH_TOKEN:-}
+      CODE_RUNNER_AUTH_USER: ${CODE_RUNNER_AUTH_USER:-}
+      CORS_ALLOWED_ORIGINS: http://localhost:3000,http://localhost:5173
+      COOKIE_SECURE: "false"
+      SESSION_COOKIE_SAME_SITE: strict
+    ports:
+      - "8080:8080"
+    depends_on:
+      database:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:8080/api
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres-data:

@@ -44,3 +44,11 @@ AI generates questions from uploaded resume.
 ## 7. Voice Interview
 
 User can answer using voice.
+
+
+## 8. HR Resume Review
+
+- Upload a PDF, DOCX, or TXT resume for an HR-focused readiness score.
+- Review strengths, gaps, and specific improvement suggestions.
+- Get likely HR interview questions grounded in the resume.
+- Resume text is sent to the configured AI provider and is not stored by IntervuAI.

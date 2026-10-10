@@ -1,39 +1,41 @@
 package com.intervuai.backend.ai;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class AIEvaluationService {
 
-    public String evaluateAnswer(String question, String answer) {
+    private final GroqService groqService;
 
-        if (answer == null || answer.trim().isEmpty()) {
-            return "Score: 0/10\n\nFeedback: No answer provided.";
+    public AIEvaluationService(GroqService groqService) {
+        this.groqService = groqService;
+    }
+
+    public EvaluationResponse evaluateAnswer(String question, String answer) {
+        if (answer == null || answer.isBlank()) {
+            EvaluationResponse response = new EvaluationResponse();
+            response.setScore(0);
+            response.setStrengths(List.of());
+            response.setWeaknesses(List.of("No answer provided."));
+            response.setCorrectAnswer("");
+            response.setSuggestions(List.of("Please provide an answer."));
+            response.setFollowUpQuestions(List.of());
+            response.setRecommendedDifficulty("Easy");
+            return response;
         }
+        EvaluationResponse response = groqService.evaluate(question, answer);
+        response.setScore(Math.max(0, Math.min(10, response.getScore())));
+        return response;
+    }
 
-        if (answer.length() > 50) {
-            return """
-Score: 8/10
+    public ResumeEvaluationResponse reviewResume(String resumeText) {
+        return groqService.reviewResume(resumeText);
+    }
 
-Strengths:
-✔ Good explanation
-✔ Answer is detailed
-
-Areas to Improve:
-• Add more technical terms
-• Include an example
-""";
-        }
-
-        return """
-Score: 5/10
-
-Strengths:
-✔ Attempted the question
-
-Areas to Improve:
-• Answer is too short
-• Explain in more detail
-""";
+    public String transcribeAudio(MultipartFile audio) {
+        return groqService.transcribeAudio(audio);
     }
 }

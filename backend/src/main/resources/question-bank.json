@@ -1,0 +1,30 @@
+[
+  {
+    "interviewType": "DSA",
+    "topic": "Arrays",
+    "difficulty": "Easy",
+    "title": "Two Sum",
+    "companies": "Google, Amazon, Microsoft",
+    "frequency": "Very High",
+    "problemStatement": "Given an array of integers and a target, return the indices of the two numbers that add up to the target.",
+    "keyConcepts": "HashMap, Arrays",
+    "expectedTimeComplexity": "O(n)",
+    "expectedSpaceComplexity": "O(n)",
+    "tags": "Array, HashMap",
+    "prerequisites": "Arrays, HashMap"
+  },
+  {
+    "interviewType": "Java",
+    "topic": "OOP",
+    "difficulty": "Easy",
+    "title": "What is Encapsulation?",
+    "companies": "Oracle, Zoho",
+    "frequency": "High",
+    "problemStatement": "Explain encapsulation in Java with a simple example.",
+    "keyConcepts": "OOP, Access Modifiers",
+    "expectedTimeComplexity": "N/A",
+    "expectedSpaceComplexity": "N/A",
+    "tags": "Java, OOP",
+    "prerequisites": "Classes, Objects"
+  }
+]
