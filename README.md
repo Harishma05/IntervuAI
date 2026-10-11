@@ -69,8 +69,3 @@ cd ..\backend
 
 Backend tests use an isolated in-memory database; they do not require PostgreSQL or a Groq key.
 
-## Containers and cloud deployment
-
-For a local container run, copy `.env.example` to `.env`, set the two values, then run `docker compose up --build` and open `http://localhost:3000`. The root `Dockerfile` packages the React site and Spring Boot API together for a single-origin Render demo. Use Neon for the demo PostgreSQL database. Setup steps and free-tier limits are in [docs/deployment.md](docs/deployment.md).
-
-Kubernetes manifests and local-cluster instructions are in [k8s/README.md](k8s/README.md). The manifests use an external PostgreSQL database and keep Groq and database credentials in a locally generated Kubernetes Secret.
